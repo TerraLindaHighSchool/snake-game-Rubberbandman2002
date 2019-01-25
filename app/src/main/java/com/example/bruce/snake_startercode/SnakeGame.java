@@ -27,11 +27,12 @@ public class SnakeGame {
       mSnake.add(new SnakeSegment(SnakeSegment.Body.BODY, beginningDirection,beginningX-1,beginningY));
       mSnake.add(new SnakeSegment(SnakeSegment.Body.TAIL, beginningDirection,beginningX-2,beginningY));
       mGameOver = false;
+      setAppleCoord();
     }
   
     protected void touched(float xTouched, float yTouched){
 
-        
+
    }
     
     protected void eatApple(){
@@ -111,6 +112,11 @@ public class SnakeGame {
       return mAppleCoord;
     }
 
+    private void setAppleCoord(){
+        mAppleCoord[0] =(int)(mBOARD_WIDTH * Math.random());
+        mAppleCoord[1] =(int)(mBOARD_HEIGHT * Math.random());
+
+    }
 }
 
 
