@@ -8,12 +8,15 @@ public class SnakeGame {
   private int[] mAppleCoord;
   private List <SnakeSegment> mSnake;
   private boolean mGameOver;
+  private int mXMax, mYMax;
 
 
     public SnakeGame(int beginningDirection, int beginningSpriteDim, int beginningX, int beginningY, int width, int height){
       mSpriteDim = beginningSpriteDim;
       mBOARD_WIDTH = width;
       mBOARD_HEIGHT = height;
+      mXMax = mBOARD_WIDTH / beginningSpriteDim;
+      mYMax = mBOARD_HEIGHT / beginningSpriteDim;
       mScore = 0;
       mLevel = 1;
       mCountdown = 12;
@@ -27,7 +30,8 @@ public class SnakeGame {
     }
   
     protected void touched(float xTouched, float yTouched){
-  
+
+        
    }
     
     protected void eatApple(){
@@ -35,7 +39,34 @@ public class SnakeGame {
     }
     
     protected boolean play(){
-          return false;
+        SnakeSegment.Body seg;
+        int xLoc, yLoc, degrees;
+        for (int i = 0; i < mSnake.size(); i++){
+             seg = mSnake.get(i).getBodyParts();
+             xLoc = mSnake.get(i).getXLoc();
+             yLoc = mSnake.get(i).getYLoc();
+             degrees = mSnake.get(i).getDegrees();
+           switch (degrees){
+                 case 180:
+                     mSnake.get(i).setXLoc(--xLoc);
+                 break;
+
+                 case 90:
+                     mSnake.get(i).setYLoc(++yLoc);
+                 break;
+
+                 case 0:
+                     mSnake.get(i).setXLoc(++xLoc);
+                 break;
+
+                 case 270:
+                     mSnake.get(i).setYLoc(--yLoc);
+             }
+             if (mSnake.get(0).getXLoc() >= mXMax || mSnake.get(0).getXLoc() <= 0 ||
+                 mSnake.get(0).getYLoc() >= mYMax || mSnake.get(0).getYLoc() <= 0)
+                    mGameOver = true;
+        }
+          return mGameOver;
     }
 
   // getters and Setters
@@ -63,6 +94,7 @@ public class SnakeGame {
     protected int getCountdown(){
       return mCountdown;
     }
+
     protected int getMillisDelay() {
       return mMillisDelay;
     }
@@ -74,6 +106,7 @@ public class SnakeGame {
     protected List<SnakeSegment> getSnake(){
       return mSnake;
     }
+
     protected int[] getAppleCoord(){
       return mAppleCoord;
     }
