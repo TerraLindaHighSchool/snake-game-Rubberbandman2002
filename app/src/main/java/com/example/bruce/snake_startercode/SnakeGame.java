@@ -53,7 +53,10 @@ public class SnakeGame {
     }
 
     protected void eatApple() {
-
+        if (mAppleCoord[0] == mSnake.get(0).getXLoc() && mAppleCoord[1] == mSnake.get(0).getYLoc()){
+            //growSnake();
+            setAppleCoord();
+        }
     }
 
     protected boolean play() {
