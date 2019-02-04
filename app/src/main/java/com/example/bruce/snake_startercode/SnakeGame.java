@@ -118,6 +118,34 @@ public class SnakeGame {
         return mGameOver;
     }
 
+        private void growSnake(){
+            SnakeSegment currentTail = mSnake.get(mSnake.size() - 1);
+            mSnake.add(new SnakeSegment(SnakeSegment.Body.BODY, currentTail.getDegrees(), currentTail.getXLoc(), currentTail.getYLoc()));
+
+            switch(currentTail.getDegrees()){
+                case 0:
+                    mSnake.get(mSnake.size() - 1).setXLoc(mSnake.get(mSnake.size() - 1).getXLoc() - 1);
+
+                    break;
+
+                case 90:
+                    mSnake.get(mSnake.size() - 1).setYLoc(mSnake.get(mSnake.size() - 1).getYLoc() + 1);
+
+                    break;
+
+                case 180:
+                    mSnake.get(mSnake.size() - 1).setXLoc(mSnake.get(mSnake.size() - 1).getXLoc() + 1);
+
+                    break;
+
+                case 270:
+                    mSnake.get(mSnake.size() - 1).setYLoc(mSnake.get(mSnake.size() - 1).getYLoc() - 1);
+
+
+                    break;
+            }
+        }
+
         // getters and Setters
 
         protected int getSpriteDim () {
