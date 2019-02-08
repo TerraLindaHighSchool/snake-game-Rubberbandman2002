@@ -55,8 +55,16 @@ public class SnakeGame {
     protected void eatApple() {
         if (mAppleCoord[0] == mSnake.get(0).getXLoc()*getSpriteDim() && mAppleCoord[1] == mSnake.get(0).getYLoc()*getSpriteDim()){
             growSnake();
+            updateScore();
             setAppleCoord();
         }
+    }
+
+    private void updateScore(){
+        mScore++;
+        mCountdown--;
+        if (mCountdown == 0)
+            mGameOver = true;
     }
 
     protected boolean play() {
@@ -110,14 +118,12 @@ public class SnakeGame {
                     eatApple();
 
                 // did snake die
-                if (mSnake.get(0).getXLoc() > mXMax || mSnake.get(0).getXLoc() < 0 ||
-                        mSnake.get(0).getYLoc() >
-                                mYMax || mSnake.get(0).getYLoc() < 0)
+            for( int b = 1; b < mSnake.size(); b++ ){
+                if ((mSnake.get(0).getXLoc() > mXMax || mSnake.get(0).getXLoc() < 0 || mSnake.get(0).getYLoc() > mYMax || mSnake.get(0).getYLoc() < 0) || (mSnake.get(0).getXLoc()== mSnake.get(b).getXLoc() && mSnake.get(0).getYLoc()== mSnake.get(b).getYLoc()))
                     mGameOver = true;
-
-
             }
-        return mGameOver;
+        }
+            return mGameOver;
     }
 
         private void growSnake(){
@@ -147,6 +153,7 @@ public class SnakeGame {
                     break;
             }
         }
+
 
         // getters and Setters
 
