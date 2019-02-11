@@ -65,6 +65,7 @@ public class SnakeGame {
         mCountdown--;
         if (mCountdown == 0)
             mGameOver = true;
+        //new level
     }
 
     protected boolean play() {
@@ -154,6 +155,13 @@ public class SnakeGame {
             }
         }
 
+        private void newLevel(){
+        mCountdown = 10 * mLevel;
+        mLevel++;
+
+
+        }
+
 
         // getters and Setters
 
@@ -203,6 +211,13 @@ public class SnakeGame {
                 mAppleCoord[1] = (int) ((mYMax - 1) * Math.random() + 1) * mSpriteDim;
             }while(mAppleCoord[0] == mSnake.get(0).getXLoc() && mAppleCoord[1] == mSnake.get(0).getYLoc());
         }
+
+    /*private void setLogCoord () {
+        do{
+            mAppleCoord[0] = (int) ((mXMax - 1) * Math.random() + 1) * mSpriteDim;
+            mAppleCoord[1] = (int) ((mYMax - 1) * Math.random() + 1) * mSpriteDim;
+        }while(mAppleCoord[0] == mSnake.get(0).getXLoc() && mAppleCoord[1] == mSnake.get(0).getYLoc());
+    }*/
     }
 
 

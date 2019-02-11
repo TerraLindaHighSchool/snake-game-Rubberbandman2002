@@ -24,7 +24,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView mTextScore, mTextHighScore, mTextCountdown;
     private int mBOARD_WIDTH, mBOARD_HEIGHT;
     private SnakeGame mGame;
-    private Bitmap mHeadBitmap, mBodyBitmap, mTailBitmap, mAppleBitmap;
+    private Bitmap mHeadBitmap, mBodyBitmap, mTailBitmap, mAppleBitmap, mlogBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class GameActivity extends AppCompatActivity {
         mBodyBitmap = BitmapFactory.decodeResource(mImageView.getResources(), R.drawable.body);
         mTailBitmap = BitmapFactory.decodeResource(mImageView.getResources(), R.drawable.tail);
         mAppleBitmap = BitmapFactory.decodeResource(mImageView.getResources(), R.drawable.apple);
+        mlogBitmap = BitmapFactory.decodeResource(mImageView.getResources(), R.drawable.log);
 
         //listen for touches
         mImageView.setOnTouchListener(new View.OnTouchListener() {
@@ -89,6 +90,28 @@ public class GameActivity extends AppCompatActivity {
         window.drawColor(Color.BLACK); //Background color
 
         //draw snake
+        for(int segment = 0; segment < snake.size(); segment++){
+            rectangle = new Rect(snake.get(segment).getXLoc() * mGame.getSpriteDim(),
+                    snake.get(segment).getYLoc() * mGame.getSpriteDim(), (snake.get(segment).getXLoc() + 1) * mGame.getSpriteDim(),
+                    (snake.get(segment).getYLoc() + 1) * mGame.getSpriteDim());
+            switch(snake.get(segment).getBodyParts()){
+                case HEAD:
+                    currentBitmap = mHeadBitmap;
+                    break;
+                case BODY:
+                    currentBitmap = mBodyBitmap;
+                    break;
+                case TAIL:
+                    currentBitmap = mTailBitmap;
+                    break;
+            }
+            if(snake.get(segment).getDegrees() == 0)
+                window.drawBitmap(currentBitmap, null, rectangle, null);
+            else
+                window.drawBitmap(rotateBitmap(currentBitmap, snake.get(segment).getDegrees()), null, rectangle, null);
+        }
+
+        //draw log
         for(int segment = 0; segment < snake.size(); segment++){
             rectangle = new Rect(snake.get(segment).getXLoc() * mGame.getSpriteDim(),
                     snake.get(segment).getYLoc() * mGame.getSpriteDim(), (snake.get(segment).getXLoc() + 1) * mGame.getSpriteDim(),
